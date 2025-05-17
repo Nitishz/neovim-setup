@@ -2,6 +2,9 @@ local lsp = {
   "neovim/nvim-lspconfig",
   dependencies = {
     {
+      "nvimtools/none-ls-extras.nvim"
+    },
+    {
       "folke/lazydev.nvim",
       ft = "lua", -- only load on lua files
       opts = {
@@ -13,13 +16,13 @@ local lsp = {
       },
     },
     {
-      "jose-elias-alvarez/null-ls.nvim",
+      "nvimtools/none-ls.nvim",
       config = function()
         local null_ls = require("null-ls")
         null_ls.setup({
           sources = {
             -- ESLint for linting
-            null_ls.builtins.diagnostics.eslint_d.with({
+            require("none-ls.diagnostics.eslint_d").with({
               condition = function(utils)
                 return utils.root_has_file({ ".eslintrc", ".eslintrc.json", ".eslintrc.js" })
               end,
@@ -96,4 +99,3 @@ local lsp = {
 }
 
 return { lsp }
-
